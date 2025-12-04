@@ -1,0 +1,150 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Tushar Nautiyal</title>
+  <style>
+    :root {
+      /* Neutral, modern palette */
+      --bg: #0e1320;           /* page background */
+      --surface: rgba(18, 24, 38, 0.55);  /* card */
+      --text: #eaf2ff;         /* main text */
+      --muted: rgba(234,242,255,0.75);    /* sub text */
+      --accent-1: #72c6ff;     /* soft cyan */
+      --accent-2: #b28dff;     /* soft violet */
+    }
+
+    /* Reset */
+    * { box-sizing: border-box; }
+    html, body { height: 100%; margin: 0; }
+    body {
+      font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+                   "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(1100px circle at 20% 20%, #1b2240, transparent 55%),
+        radial-gradient(900px circle at 80% 70%, #0f1b3a, transparent 55%),
+        linear-gradient(180deg, var(--bg), #0b1020);
+      overflow: hidden;
+    }
+
+    /* Soft glow blob (very subtle, slow) */
+    .glow {
+      position: fixed;
+      left: 60%;
+      top: 60%;
+      width: min(56vmin, 520px);
+      height: min(56vmin, 520px);
+      transform: translate(-50%, -50%);
+      border-radius: 55% 45% 60% 40% / 45% 55% 40% 60%;
+      background:
+        radial-gradient(55% 55% at 50% 50%, rgba(255,255,255,0.15) 0%, transparent 60%),
+        radial-gradient(65% 65% at 35% 55%, rgba(114, 198, 255, 0.25) 0%, transparent 70%),
+        radial-gradient(60% 60% at 60% 45%, rgba(178, 141, 255, 0.22) 0%, transparent 70%);
+      filter: blur(24px) saturate(115%);
+      mix-blend-mode: screen;
+      opacity: 0.45;
+      animation: morph 18s ease-in-out infinite;
+      z-index: 0;
+    }
+    @keyframes morph {
+      0%, 100% { border-radius: 55% 45% 60% 40% / 45% 55% 40% 60%; transform: translate(-50%, -50%) }
+      50%      { border-radius: 50% 50% 45% 55% / 55% 45% 50% 50%; transform: translate(-50%, -51%) }
+    }
+
+    /* Stage */
+    .stage {
+      position: relative;
+      height: 100%;
+      display: grid;
+      place-items: center;
+      padding: 2rem;
+      isolation: isolate;
+    }
+
+    /* Clean card */
+    .card {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 2rem 3rem;
+      border-radius: 16px;
+      background: var(--surface);
+      backdrop-filter: blur(14px) saturate(110%);
+      border: 1px solid rgba(220,230,255,0.12);
+      box-shadow:
+        0 20px 40px rgba(0,0,0,0.35),
+        inset 0 1px 0 rgba(255,255,255,0.06);
+      max-width: 92vw;
+    }
+
+    /* Minimal accent border (very light) */
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      pointer-events: none;
+      background:
+        linear-gradient(90deg, rgba(114,198,255,0.15), rgba(178,141,255,0.15));
+      mask: linear-gradient(#000, #000) content-box, linear-gradient(#000, #000);
+      padding: 1px;
+      -webkit-mask-composite: xor;
+              mask-composite: exclude;
+      opacity: 0.7;
+    }
+
+    /* Name: clean, understated gradient */
+    .name {
+      margin: 0;
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: 0.01em;
+      font-size: clamp(2rem, 6vw + 0.5rem, 5rem);
+      background: linear-gradient(90deg, var(--accent-1), var(--accent-2));
+      background-size: 160% auto;
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow: 0 6px 28px rgba(0,0,0,0.45);
+      animation: shift 10s ease-in-out infinite;
+    }
+    @keyframes shift {
+      0%,100% { background-position: 0% 50%; }
+      50%     { background-position: 100% 50%; }
+    }
+
+    .sub {
+      margin-top: 0.75rem;
+      font-size: clamp(0.95rem, 2vw + 0.2rem, 1.15rem);
+      color: var(--muted);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    /* Mobile tweaks */
+    @media (max-width: 520px) {
+      .card { padding: 1.25rem 1.4rem; border-radius: 14px; }
+      .glow { left: 50%; top: 64%; width: min(68vmin, 520px); height: min(68vmin, 520px); }
+    }
+
+    /* Reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      * { animation: none !important; transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Subtle background accent -->
+  <div class="glow" aria-hidden="true"></div>
+
+  <main class="stage" aria-label="Name">
+    <section class="card" aria-label="Name card">
+      <h1 class="name" aria-label="Tushar Nautiyal">Tushar Nautiyal</h1>
+      <p class="sub">Graduate Engineer Trainee • Engineering</p>
+    </section>
+  </main>
+</body>
+</html>
